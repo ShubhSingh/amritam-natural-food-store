@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile } from 'fs/promises';
-import { join } from 'path';
+import { put, head } from '@vercel/blob';
+
+const BLOB_FILENAME = 'products.json';
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,32 +15,46 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Path to products.json file
-    const filePath = join(process.cwd(), 'data', 'products.json');
+    // Get existing data to preserve categories
+    let categories = [];
+    try {
+      const existingBlob = await fetch(
+        `${process.env.BLOB_READ_WRITE_TOKEN ? 'https://' + process.env.VERCEL_URL : ''}/api/products`
+      );
+      if (existingBlob.ok) {
+        const existingData = await existingBlob.json();
+        categories = existingData.categories || [];
+      }
+    } catch (error) {
+      // If no existing data, load from local file
+      const productsData = require('@/data/products.json');
+      categories = productsData.categories || [];
+    }
 
-    // Read existing data to preserve categories
-    const fs = require('fs');
-    const existingData = JSON.parse(
-      fs.readFileSync(filePath, 'utf8')
-    );
-
-    // Update products while keeping categories
-    const updatedData = {
+    // Prepare data to save
+    const dataToSave = {
       products,
-      categories: existingData.categories,
+      categories,
     };
 
-    // Write to file
-    await writeFile(filePath, JSON.stringify(updatedData, null, 2), 'utf8');
+    // Upload to Vercel Blob
+    const blob = await put(BLOB_FILENAME, JSON.stringify(dataToSave, null, 2), {
+      access: 'public',
+      addRandomSuffix: false,
+    });
 
     return NextResponse.json({
       success: true,
       message: 'Products updated successfully',
+      url: blob.url,
     });
   } catch (error) {
     console.error('Error updating products:', error);
     return NextResponse.json(
-      { error: 'Failed to update products' },
+      { 
+        error: 'Failed to update products', 
+        details: error instanceof Error ? error.message : 'Unknown error' 
+      },
       { status: 500 }
     );
   }
@@ -47,15 +62,29 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    const filePath = join(process.cwd(), 'data', 'products.json');
-    const fs = require('fs');
-    const data = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    // Try to get data from Vercel Blob first
+    try {
+      const blobExists = await head(BLOB_FILENAME);
+      
+      if (blobExists) {
+        const response = await fetch(blobExists.url);
+        const data = await response.json();
+        return NextResponse.json(data);
+      }
+    } catch (blobError) {
+      console.log('No blob data found, using local file');
+    }
 
-    return NextResponse.json(data);
+    // Fallback to local products.json if blob doesn't exist
+    const productsData = require('@/data/products.json');
+    return NextResponse.json(productsData);
   } catch (error) {
     console.error('Error reading products:', error);
     return NextResponse.json(
-      { error: 'Failed to read products' },
+      { 
+        error: 'Failed to read products', 
+        details: error instanceof Error ? error.message : 'Unknown error' 
+      },
       { status: 500 }
     );
   }
