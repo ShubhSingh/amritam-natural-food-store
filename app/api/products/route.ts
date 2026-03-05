@@ -41,6 +41,7 @@ export async function POST(request: NextRequest) {
     const blob = await put(BLOB_FILENAME, JSON.stringify(dataToSave, null, 2), {
       access: 'private',
       addRandomSuffix: false,
+      allowOverwrite: true,
     });
 
     return NextResponse.json({
