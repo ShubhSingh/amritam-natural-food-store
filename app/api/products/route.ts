@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
 
     // Upload to Vercel Blob
     const blob = await put(BLOB_FILENAME, JSON.stringify(dataToSave, null, 2), {
-      access: 'public',
+      access: 'private',
       addRandomSuffix: false,
     });
 
