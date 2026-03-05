@@ -1,0 +1,508 @@
+{
+  "products": [
+    {
+      "id": "prod-001",
+      "name": "Organic Basmati Rice",
+      "description": "Premium quality organic basmati rice, aged for perfect aroma and taste. Grown without pesticides.",
+      "category": "Grains & Cereals",
+      "weightKg": 5,
+      "priceRupees": 450,
+      "originalPrice": 550,
+      "discount": 18,
+      "image": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500&h=500&fit=crop",
+      "inStock": true,
+      "rating": 4.5,
+      "reviewCount": 234,
+      "purchaseLinks": [
+        {
+          "platform": "amazon",
+          "url": "https://www.amazon.in/",
+          "available": true
+        },
+        {
+          "platform": "flipkart",
+          "url": "https://www.flipkart.com/",
+          "available": true
+        },
+        {
+          "platform": "swiggy",
+          "url": "https://www.swiggyinstamart.com/",
+          "available": false
+        },
+        {
+          "platform": "blinkit",
+          "url": "https://blinkit.com/",
+          "available": true
+        }
+      ],
+      "tags": [
+        "organic",
+        "rice",
+        "basmati",
+        "premium"
+      ],
+      "featured": false
+    },
+    {
+      "id": "prod-002",
+      "name": "Fresh Organic Tomatoes",
+      "description": "Farm-fresh organic tomatoes, rich in vitamins and antioxidants. Perfect for salads and cooking.",
+      "category": "Vegetables",
+      "weightKg": 1,
+      "priceRupees": 60,
+      "originalPrice": 80,
+      "discount": 25,
+      "image": "https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=500&h=500&fit=crop",
+      "inStock": true,
+      "rating": 4.7,
+      "reviewCount": 456,
+      "purchaseLinks": [
+        {
+          "platform": "amazon",
+          "url": "https://www.amazon.in/",
+          "available": true
+        },
+        {
+          "platform": "flipkart",
+          "url": "https://www.flipkart.com/",
+          "available": false
+        },
+        {
+          "platform": "swiggy",
+          "url": "https://www.swiggyinstamart.com/",
+          "available": true
+        },
+        {
+          "platform": "blinkit",
+          "url": "https://blinkit.com/",
+          "available": true
+        }
+      ],
+      "tags": [
+        "organic",
+        "vegetables",
+        "fresh",
+        "tomatoes"
+      ],
+      "featured": false
+    },
+    {
+      "id": "prod-003",
+      "name": "Organic Whole Wheat Flour",
+      "description": "Stone-ground organic whole wheat flour, rich in fiber and nutrients. Perfect for rotis and breads.",
+      "category": "Grains & Cereals",
+      "weightKg": 10,
+      "priceRupees": 380,
+      "originalPrice": 450,
+      "discount": 16,
+      "image": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500&h=500&fit=crop",
+      "inStock": true,
+      "rating": 4.6,
+      "reviewCount": 189,
+      "purchaseLinks": [
+        {
+          "platform": "amazon",
+          "url": "https://www.amazon.in/",
+          "available": true
+        },
+        {
+          "platform": "flipkart",
+          "url": "https://www.flipkart.com/",
+          "available": true
+        },
+        {
+          "platform": "swiggy",
+          "url": "https://www.swiggyinstamart.com/",
+          "available": true
+        },
+        {
+          "platform": "blinkit",
+          "url": "https://blinkit.com/",
+          "available": false
+        }
+      ],
+      "tags": [
+        "organic",
+        "flour",
+        "wheat",
+        "whole-grain"
+      ],
+      "featured": false
+    },
+    {
+      "id": "prod-004",
+      "name": "Organic Sugarcane",
+      "description": "Fresh organic sugarcane sticks, naturally sweet and juicy. Rich in antioxidants and minerals. Perfect for fresh juice or chewing.",
+      "category": "Fruits",
+      "weightKg": 2,
+      "priceRupees": 80,
+      "originalPrice": 100,
+      "discount": 20,
+      "image": "https://cdn.pixabay.com/photo/2020/07/09/20/00/sugarcane-5388614_1280.jpg",
+      "inStock": true,
+      "rating": 4.7,
+      "reviewCount": 456,
+      "purchaseLinks": [
+        {
+          "platform": "amazon",
+          "url": "https://www.amazon.in/",
+          "available": true
+        },
+        {
+          "platform": "flipkart",
+          "url": "https://www.flipkart.com/",
+          "available": true
+        },
+        {
+          "platform": "swiggy",
+          "url": "https://www.swiggyinstamart.com/",
+          "available": true
+        },
+        {
+          "platform": "blinkit",
+          "url": "https://blinkit.com/",
+          "available": true
+        }
+      ],
+      "tags": [
+        "organic",
+        "sugarcane",
+        "fresh",
+        "natural",
+        "juice"
+      ],
+      "featured": false
+    },
+    {
+      "id": "prod-005",
+      "name": "Organic Toor Dal",
+      "description": "High-quality organic toor dal (pigeon peas), protein-rich and perfect for daily meals.",
+      "category": "Pulses & Lentils",
+      "weightKg": 1,
+      "priceRupees": 140,
+      "originalPrice": 160,
+      "discount": 13,
+      "image": "https://5.imimg.com/data5/SELLER/Default/2023/12/365445161/HQ/HP/MI/186645388/yellow-organic-toor-dal-1000x1000.jpg",
+      "inStock": true,
+      "rating": 4.4,
+      "reviewCount": 312,
+      "purchaseLinks": [
+        {
+          "platform": "amazon",
+          "url": "https://www.amazon.in/",
+          "available": true
+        },
+        {
+          "platform": "flipkart",
+          "url": "https://www.flipkart.com/",
+          "available": true
+        },
+        {
+          "platform": "swiggy",
+          "url": "https://www.swiggyinstamart.com/",
+          "available": true
+        },
+        {
+          "platform": "blinkit",
+          "url": "https://blinkit.com/",
+          "available": true
+        }
+      ],
+      "tags": [
+        "organic",
+        "dal",
+        "pulses",
+        "protein"
+      ],
+      "featured": false
+    },
+    {
+      "id": "prod-006",
+      "name": "Organic Spinach",
+      "description": "Fresh organic spinach leaves, rich in iron and vitamins. Ideal for healthy cooking.",
+      "category": "Vegetables",
+      "weightKg": 0.5,
+      "priceRupees": 40,
+      "originalPrice": 50,
+      "discount": 20,
+      "image": "https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=500&h=500&fit=crop",
+      "inStock": true,
+      "rating": 4.5,
+      "reviewCount": 267,
+      "purchaseLinks": [
+        {
+          "platform": "amazon",
+          "url": "https://www.amazon.in/",
+          "available": false
+        },
+        {
+          "platform": "flipkart",
+          "url": "https://www.flipkart.com/",
+          "available": true
+        },
+        {
+          "platform": "swiggy",
+          "url": "https://www.swiggyinstamart.com/",
+          "available": true
+        },
+        {
+          "platform": "blinkit",
+          "url": "https://blinkit.com/",
+          "available": true
+        }
+      ],
+      "tags": [
+        "organic",
+        "vegetables",
+        "leafy-greens",
+        "spinach"
+      ],
+      "featured": false
+    },
+    {
+      "id": "prod-007",
+      "name": "Organic Honey",
+      "description": "Pure organic honey from Himalayan forests. Natural sweetener with health benefits.",
+      "category": "Sweeteners",
+      "weightKg": 0.5,
+      "priceRupees": 280,
+      "originalPrice": 320,
+      "discount": 13,
+      "image": "https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=500&h=500&fit=crop",
+      "inStock": true,
+      "rating": 4.8,
+      "reviewCount": 523,
+      "purchaseLinks": [
+        {
+          "platform": "amazon",
+          "url": "https://www.amazon.in/Kapiva-Organic-Strengthens-Immunity-Digestion/dp/B0CT5Y61WC/ref=sr_1_6?dib=eyJ2IjoiMSJ9.Et5Du5PhiwFcq_2iz5MF7X50sbKhSLkwQofKzC_Huuow2-1fDAFDcqQ2DOzm14h2r03xciAyz-Hat14UC7ZX0mFxDLSLNl6rREForR3hhQLu6h2pbTPU-g1DoM3nixPcQ2SYkQN1YjU3QnIHq3vxw-qaXSlQWfqA9V2EhUwdIK2RaNCz5zZZ6M9llWsn5gydwe0BSsNZBdMiCs0Iu4NPc0iFmOGigFGTVfTR-iUdFIZesUTzueqwFmzKU3KqoOm7kwYaHZ-uSA4Y1wDeVNCzGLR4ERgMBmrc0doto0U1DVU.wRGHiId2SFNer5ge4z8vleuRdFW2_0YQLd_HJrAw_O0&dib_tag=se&keywords=raw+organic+honey&qid=1772730742&sr=8-6",
+          "available": true
+        },
+        {
+          "platform": "flipkart",
+          "url": "https://www.flipkart.com/zandu-sundarban-forest-honey-100-pure-rich-antioxidants/p/itm09bcd60a674a1?pid=HNYHEZMT3ENN9G8V&lid=LSTHNYHEZMT3ENN9G8VGCDCCR&marketplace=FLIPKART&store=eat%2Flnz&srno=b_1_1&otracker=browse&fm=organic&iid=en_0Sfv51m-ox6KNbhp3nPd7dx-tvRzR3KK2FkP24n2R9KYOUL6j4-HgC-Wlx2D7yK-_xcNoGKJ1HvvIt9x0R-d2E4IsYyWu-Pj9cxFjFAoaLk%3D&ppt=browse&ppn=browse&ssid=ip4fa73vrk0000001772731010160&ov_redirect=true&ov_redirect=true",
+          "available": true
+        },
+        {
+          "platform": "swiggy",
+          "url": "https://www.swiggy.com/stores/instamart/item/1PTULAS0BD?share=true",
+          "available": true
+        },
+        {
+          "platform": "blinkit",
+          "url": "https://blinkit.com/",
+          "available": true
+        }
+      ],
+      "tags": [
+        "organic",
+        "honey",
+        "natural",
+        "sweetener"
+      ],
+      "featured": false
+    },
+    {
+      "id": "prod-008",
+      "name": "Organic Bananas",
+      "description": "Fresh organic bananas, naturally ripened. Rich in potassium and energy.",
+      "category": "Fruits",
+      "weightKg": 1,
+      "priceRupees": 50,
+      "originalPrice": 60,
+      "discount": 17,
+      "image": "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=500&h=500&fit=crop",
+      "inStock": true,
+      "rating": 4.3,
+      "reviewCount": 891,
+      "purchaseLinks": [
+        {
+          "platform": "amazon",
+          "url": "https://www.amazon.in/",
+          "available": true
+        },
+        {
+          "platform": "flipkart",
+          "url": "https://www.flipkart.com/",
+          "available": true
+        },
+        {
+          "platform": "swiggy",
+          "url": "https://www.swiggyinstamart.com/",
+          "available": true
+        },
+        {
+          "platform": "blinkit",
+          "url": "https://blinkit.com/",
+          "available": true
+        }
+      ],
+      "tags": [
+        "organic",
+        "fruits",
+        "bananas",
+        "fresh"
+      ],
+      "featured": false
+    },
+    {
+      "id": "prod-009",
+      "name": "Organic Jaggery",
+      "description": "Pure organic jaggery (gur) made from sugarcane. Natural sweetener rich in iron and minerals. Perfect for traditional Indian sweets and beverages.",
+      "category": "Sweeteners",
+      "weightKg": 1,
+      "priceRupees": 120,
+      "originalPrice": 150,
+      "discount": 20,
+      "image": "https://cdn.grofers.com/da/cms-assets/cms/product/19e75d64-f903-4495-b836-36bd5567d977.png?bg_token=color.background.quaternary",
+      "inStock": true,
+      "rating": 4.6,
+      "reviewCount": 387,
+      "purchaseLinks": [
+        {
+          "platform": "amazon",
+          "url": "https://www.amazon.in/",
+          "available": true
+        },
+        {
+          "platform": "flipkart",
+          "url": "https://www.flipkart.com/",
+          "available": true
+        },
+        {
+          "platform": "swiggy",
+          "url": "https://www.swiggyinstamart.com/",
+          "available": false
+        },
+        {
+          "platform": "blinkit",
+          "url": "https://blinkit.com/prn/amritam-deshi-sonth-jaggery-laddu/prid/540350",
+          "available": true
+        }
+      ],
+      "tags": [
+        "organic",
+        "jaggery",
+        "gur",
+        "sweetener",
+        "natural"
+      ],
+      "featured": true
+    },
+    {
+      "id": "prod-010",
+      "name": "Organic Jaggery Bites",
+      "description": "Delicious organic jaggery bites made from pure sugarcane. Perfect healthy snack rich in iron and minerals. Great for tea time or as a natural energy booster.",
+      "category": "Sweeteners",
+      "weightKg": 0.5,
+      "priceRupees": 150,
+      "originalPrice": 180,
+      "discount": 17,
+      "image": "https://m.media-amazon.com/images/I/81iVmTgDfmL._SL1500_.jpg",
+      "inStock": true,
+      "rating": 4.5,
+      "reviewCount": 245,
+      "purchaseLinks": [
+        {
+          "platform": "amazon",
+          "url": "https://www.amazon.in/",
+          "available": true
+        },
+        {
+          "platform": "flipkart",
+          "url": "https://www.flipkart.com/",
+          "available": true
+        },
+        {
+          "platform": "swiggy",
+          "url": "https://www.swiggyinstamart.com/",
+          "available": true
+        },
+        {
+          "platform": "blinkit",
+          "url": "https://blinkit.com/",
+          "available": false
+        }
+      ],
+      "tags": [
+        "organic",
+        "jaggery",
+        "snack",
+        "healthy",
+        "natural"
+      ],
+      "featured": true
+    },
+    {
+      "id": "prod-011",
+      "name": "Organic Jaggery Powder",
+      "description": "Fine organic jaggery powder made from pure sugarcane. Easy to use natural sweetener, perfect for beverages, desserts, and cooking. Rich in iron and minerals.",
+      "category": "Sweeteners",
+      "weightKg": 0.5,
+      "priceRupees": 90,
+      "originalPrice": 110,
+      "discount": 18,
+      "image": "https://cdn.grofers.com/da/cms-assets/cms/product/430be7ce-e99c-48c8-b736-847847f54dc6.jpg",
+      "inStock": true,
+      "rating": 4.4,
+      "reviewCount": 198,
+      "purchaseLinks": [
+        {
+          "platform": "amazon",
+          "url": "https://www.amazon.in/",
+          "available": true
+        },
+        {
+          "platform": "flipkart",
+          "url": "https://www.flipkart.com/",
+          "available": true
+        },
+        {
+          "platform": "swiggy",
+          "url": "https://www.swiggyinstamart.com/",
+          "available": true
+        },
+        {
+          "platform": "blinkit",
+          "url": "https://blinkit.com/",
+          "available": true
+        }
+      ],
+      "tags": [
+        "organic",
+        "jaggery",
+        "powder",
+        "sweetener",
+        "natural"
+      ],
+      "featured": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat-001",
+      "name": "Fruits",
+      "icon": "🍎"
+    },
+    {
+      "id": "cat-002",
+      "name": "Vegetables",
+      "icon": "🥬"
+    },
+    {
+      "id": "cat-003",
+      "name": "Grains & Cereals",
+      "icon": "🌾"
+    },
+    {
+      "id": "cat-004",
+      "name": "Pulses & Lentils",
+      "icon": "🫘"
+    },
+    {
+      "id": "cat-005",
+      "name": "Sweeteners",
+      "icon": "🍯"
+    }
+  ]
+}
