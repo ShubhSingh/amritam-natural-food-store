@@ -99,6 +99,7 @@ export default function AdminPage() {
 
   const saveProducts = async (updatedProducts: Product[]) => {
     try {
+      console.log('Saving products to API...', updatedProducts.length);
       const response = await fetch('/api/products', {
         method: 'POST',
         headers: {
@@ -108,14 +109,30 @@ export default function AdminPage() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to save products');
+        const errorData = await response.json();
+        console.error('Save failed:', errorData);
+        throw new Error(errorData.error || 'Failed to save products');
       }
 
+      const result = await response.json();
+      console.log('✅ Save successful:', result);
       return true;
     } catch (error) {
-      console.error('Error saving products:', error);
-      alert('Failed to save products. Please try again.');
+      console.error('❌ Error saving products:', error);
+      alert('Failed to save products. Please try again. Check console for details.');
       return false;
+    }
+  };
+
+  const refetchProducts = async () => {
+    try {
+      console.log('Refetching products from API...');
+      const response = await fetch('/api/products');
+      const data = await response.json();
+      setProducts(data.products || []);
+      console.log('✅ Refetched products:', data.products?.length);
+    } catch (error) {
+      console.error('❌ Error refetching products:', error);
     }
   };
 
@@ -156,7 +173,12 @@ export default function AdminPage() {
 
     const saved = await saveProducts(updatedProducts);
     if (saved) {
+      // Update local state immediately
       setProducts(updatedProducts);
+      
+      // Refetch from API to confirm it was saved to blob
+      await refetchProducts();
+      
       setSuccessNotification({
         show: true,
         productName: newProduct.name,
@@ -214,7 +236,12 @@ export default function AdminPage() {
     const updatedProducts = products.filter((p) => p.id !== deleteConfirm.product!.id);
     const saved = await saveProducts(updatedProducts);
     if (saved) {
+      // Update local state immediately
       setProducts(updatedProducts);
+      
+      // Refetch from API to confirm it was saved to blob
+      await refetchProducts();
+      
       setSuccessNotification({
         show: true,
         productName: deleteConfirm.product.name,
