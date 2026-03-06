@@ -168,14 +168,15 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                 {product.purchaseLinks.map((link) => (
                   <a
                     key={link.platform}
-                    href={link.url}
+                    href={product.inStock && link.available ? link.url : undefined}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`flex flex-col items-center justify-center p-4 rounded-lg border-2 transition ${
-                      link.available
+                      link.available && product.inStock
                         ? 'border-primary-300 hover:border-primary-500 hover:bg-primary-50 cursor-pointer'
                         : 'border-gray-200 bg-gray-50 cursor-not-allowed opacity-60'
                     }`}
+                    onClick={(e) => (!product.inStock || !link.available) && e.preventDefault()}
                   >
                     <div className="text-primary-600 mb-2">
                       {link.platform === 'amazon' && <AmazonIcon size={40} />}
@@ -187,9 +188,9 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                       {link.platform}
                     </p>
                     <p className="text-xs text-gray-600 text-center mt-1">
-                      {link.available ? 'Available Now' : 'Unavailable'}
+                      {!product.inStock ? 'Out of Stock' : link.available ? 'Available Now' : 'Unavailable'}
                     </p>
-                    {link.available && (
+                    {link.available && product.inStock && (
                       <ExternalLink size={16} className="text-primary-600 mt-2" />
                     )}
                   </a>

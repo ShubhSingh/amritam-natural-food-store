@@ -10,10 +10,19 @@ async function migrateToBlob() {
   try {
     console.log('Starting migration to Vercel Blob...');
     
+    // Get token from environment
+    const token = process.env.BLOB_READ_WRITE_TOKEN;
+    if (!token) {
+      throw new Error('BLOB_READ_WRITE_TOKEN is not configured in environment variables');
+    }
+    
+    console.log('Using token for blob operations...');
+    
     const blob = await put('products.json', JSON.stringify(productsData, null, 2), {
       access: 'private',
       addRandomSuffix: false,
       allowOverwrite: true,
+      token,
     });
 
     console.log('✅ Successfully migrated products to Vercel Blob!');

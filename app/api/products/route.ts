@@ -1,7 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { put, list } from '@vercel/blob';
+import { put, list, head } from '@vercel/blob';
 
 const BLOB_FILENAME = 'products.json';
+
+// Get token from environment
+const getToken = () => {
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
+  if (!token) {
+    throw new Error('BLOB_READ_WRITE_TOKEN is not configured');
+  }
+  return token;
+};
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,13 +28,14 @@ export async function POST(request: NextRequest) {
 
     console.log(`Saving ${products.length} products to Vercel Blob...`);
 
-    // Get existing categories from blob or local file
+    // Get existing categories from blob
     let categories = [];
     try {
-      // Try to get existing data from blob to preserve categories
+      const token = getToken();
       const { blobs } = await list({
         prefix: BLOB_FILENAME,
         limit: 1,
+        token,
       });
       
       if (blobs.length > 0) {
@@ -35,10 +45,15 @@ export async function POST(request: NextRequest) {
           categories = existingData.categories || [];
           console.log('Preserved existing categories from blob');
         }
+      } else {
+        // First time setup - get categories from local file
+        console.log('First time setup - loading categories from local file');
+        const productsData = require('@/data/products.json');
+        categories = productsData.categories || [];
       }
     } catch (error) {
-      console.log('No existing blob data, loading categories from local file');
-      // If no existing data, load from local file
+      console.error('Error getting existing categories:', error);
+      // First time setup - get categories from local file
       const productsData = require('@/data/products.json');
       categories = productsData.categories || [];
     }
@@ -49,12 +64,14 @@ export async function POST(request: NextRequest) {
       categories,
     };
 
-    // Upload to Vercel Blob
+    // Upload to Vercel Blob with private access
     console.log('Uploading to Vercel Blob...');
+    const token = getToken();
     const blob = await put(BLOB_FILENAME, JSON.stringify(dataToSave, null, 2), {
       access: 'private',
       addRandomSuffix: false,
       allowOverwrite: true,
+      token,
     });
 
     console.log('✅ Successfully saved to Vercel Blob:', blob.url);
@@ -78,36 +95,62 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    // Try to get data from Vercel Blob first
+    console.log('GET /api/products - Reading from Vercel Blob...');
+    
+    const token = getToken();
+    
+    // List blobs to find the products.json file
     try {
-      // List blobs to find our products file
       const { blobs } = await list({
         prefix: BLOB_FILENAME,
         limit: 1,
+        token,
       });
       
       if (blobs.length > 0) {
-        // Fetch the blob content using the download URL
-        const response = await fetch(blobs[0].downloadUrl);
+        // Fetch the blob content using the download URL with token
+        const response = await fetch(blobs[0].downloadUrl, {
+          cache: 'no-store',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        
         if (response.ok) {
           const data = await response.json();
-          console.log('Successfully loaded products from Vercel Blob');
+          console.log('✅ Successfully loaded products from Vercel Blob:', data.products?.length, 'products');
           return NextResponse.json(data);
         }
+        
+        throw new Error(`Failed to fetch blob: ${response.statusText}`);
       }
-    } catch (blobError) {
-      console.log('No blob data found or error accessing blob, using local file:', blobError);
+      
+      // If blob doesn't exist, initialize from local file
+      console.log('⚠️ No blob found - initializing from local file');
+      const productsData = require('@/data/products.json');
+      
+      // Save to blob with private access
+      const blob = await put(BLOB_FILENAME, JSON.stringify(productsData, null, 2), {
+        access: 'private',
+        addRandomSuffix: false,
+        allowOverwrite: true,
+        token,
+      });
+      
+      console.log('✅ Initialized blob from local file:', blob.url);
+      return NextResponse.json(productsData);
+    } catch (fetchError) {
+      console.error('Error fetching from blob:', fetchError);
+      // Fallback to local file
+      console.log('Falling back to local file');
+      const productsData = require('@/data/products.json');
+      return NextResponse.json(productsData);
     }
-
-    // Fallback to local products.json if blob doesn't exist
-    console.log('Loading products from local file');
-    const productsData = require('@/data/products.json');
-    return NextResponse.json(productsData);
   } catch (error) {
-    console.error('Error reading products:', error);
+    console.error('❌ Error reading products:', error);
     return NextResponse.json(
       {
-        error: 'Failed to read products',
+        error: 'Failed to read products from blob storage',
         details: error instanceof Error ? error.message : 'Unknown error'
       },
       { status: 500 }

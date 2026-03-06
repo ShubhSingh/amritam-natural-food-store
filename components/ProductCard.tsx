@@ -125,11 +125,16 @@ export default function ProductCard({ product, onViewDetails }: ProductCardProps
               link.available && (
                 <a
                   key={link.platform}
-                  href={link.url}
+                  href={product.inStock ? link.url : undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-center py-1.5 text-xs border-2 border-gray-300 rounded-md hover:border-primary-500 hover:text-primary-600 transition font-medium flex items-center justify-center gap-1"
-                  title={`Buy on ${link.platform}`}
+                  className={`text-center py-1.5 text-xs border-2 rounded-md transition font-medium flex items-center justify-center gap-1 ${
+                    product.inStock
+                      ? 'border-gray-300 hover:border-primary-500 hover:text-primary-600 cursor-pointer'
+                      : 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed'
+                  }`}
+                  title={product.inStock ? `Buy on ${link.platform}` : 'Out of stock'}
+                  onClick={(e) => !product.inStock && e.preventDefault()}
                 >
                   {link.platform === 'amazon' && (
                     <>

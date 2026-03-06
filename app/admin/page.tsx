@@ -32,11 +32,22 @@ export default function AdminPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        console.log('Fetching products from API...');
         const response = await fetch('/api/products');
         const data = await response.json();
+        
+        console.log('API Response:', data);
+        
+        if (data.error) {
+          console.error('API Error:', data.error, data.details);
+          alert(`Error loading products: ${data.error}\n${data.details || ''}`);
+        }
+        
         setProducts(data.products || []);
+        console.log('Loaded products:', data.products?.length || 0);
       } catch (error) {
         console.error('Error fetching products:', error);
+        alert(`Failed to load products: ${error instanceof Error ? error.message : 'Unknown error'}`);
       } finally {
         setLoading(false);
       }

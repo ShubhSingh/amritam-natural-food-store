@@ -4,7 +4,8 @@ import { list } from '@vercel/blob';
 export async function GET() {
   try {
     // Check if token exists
-    const hasToken = !!process.env.BLOB_READ_WRITE_TOKEN;
+    const token = process.env.BLOB_READ_WRITE_TOKEN;
+    const hasToken = !!token;
     
     if (!hasToken) {
       return NextResponse.json({
@@ -14,10 +15,11 @@ export async function GET() {
       });
     }
 
-    // Try to list blobs
+    // Try to list blobs with token
     const { blobs } = await list({
       prefix: 'products.json',
       limit: 10,
+      token,
     });
 
     return NextResponse.json({
@@ -35,7 +37,7 @@ export async function GET() {
       status: 'error',
       message: error instanceof Error ? error.message : 'Unknown error',
       hasToken: !!process.env.BLOB_READ_WRITE_TOKEN,
-    });
+    }, { status: 500 });
   }
 }
 
