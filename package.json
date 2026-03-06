@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build && next export"
+    "export": "next build && next export",
+    "migrate-to-blob": "tsx scripts/migrate-to-blob.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.3.1",
@@ -26,6 +27,7 @@
     "eslint-config-next": "16.1.1",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.7.0",
     "typescript": "5.6.2"
   },
   "keywords": [

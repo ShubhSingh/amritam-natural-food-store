@@ -5,12 +5,12 @@ import { Product, PurchaseLink } from '@/types/product';
 import { Download, Plus, Edit, Trash2, Upload } from 'lucide-react';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import SuccessNotification from '@/components/SuccessNotification';
-import productsData from '@/data/products.json';
 
 export default function AdminPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
   const formRef = useRef<HTMLDivElement>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; product: Product | null }>({
     show: false,
@@ -28,9 +28,21 @@ export default function AdminPage() {
     action: 'saved',
   });
 
-  // Load existing products on mount
+  // Load existing products from API on mount
   useEffect(() => {
-    setProducts(productsData.products as Product[]);
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('/api/products');
+        const data = await response.json();
+        setProducts(data.products || []);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
   const [formData, setFormData] = useState<Partial<Product>>({
@@ -280,7 +292,12 @@ export default function AdminPage() {
           <h2 className="text-2xl font-bold mb-4">
             Products ({products.length})
           </h2>
-          {products.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-12 text-gray-500">
+              <div className="text-6xl mb-4">🌿</div>
+              <p className="text-lg mb-2">Loading products...</p>
+            </div>
+          ) : products.length === 0 ? (
             <div className="text-center py-12 text-gray-500">
               <p className="text-lg mb-2">No products added yet</p>
               <p className="text-sm">Click "Add Product" to create your first product</p>
