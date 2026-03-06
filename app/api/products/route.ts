@@ -5,27 +5,39 @@ const BLOB_FILENAME = 'products.json';
 
 export async function POST(request: NextRequest) {
   try {
+    console.log('POST /api/products - Starting save to Vercel Blob...');
     const body = await request.json();
     const { products } = body;
 
     if (!products || !Array.isArray(products)) {
+      console.error('Invalid products data received');
       return NextResponse.json(
         { error: 'Invalid products data' },
         { status: 400 }
       );
     }
 
-    // Get existing data to preserve categories
+    console.log(`Saving ${products.length} products to Vercel Blob...`);
+
+    // Get existing categories from blob or local file
     let categories = [];
     try {
-      const existingBlob = await fetch(
-        `${process.env.BLOB_READ_WRITE_TOKEN ? 'https://' + process.env.VERCEL_URL : ''}/api/products`
-      );
-      if (existingBlob.ok) {
-        const existingData = await existingBlob.json();
-        categories = existingData.categories || [];
+      // Try to get existing data from blob to preserve categories
+      const { blobs } = await list({
+        prefix: BLOB_FILENAME,
+        limit: 1,
+      });
+      
+      if (blobs.length > 0) {
+        const response = await fetch(blobs[0].downloadUrl);
+        if (response.ok) {
+          const existingData = await response.json();
+          categories = existingData.categories || [];
+          console.log('Preserved existing categories from blob');
+        }
       }
     } catch (error) {
+      console.log('No existing blob data, loading categories from local file');
       // If no existing data, load from local file
       const productsData = require('@/data/products.json');
       categories = productsData.categories || [];
@@ -38,23 +50,26 @@ export async function POST(request: NextRequest) {
     };
 
     // Upload to Vercel Blob
+    console.log('Uploading to Vercel Blob...');
     const blob = await put(BLOB_FILENAME, JSON.stringify(dataToSave, null, 2), {
       access: 'private',
       addRandomSuffix: false,
       allowOverwrite: true,
     });
 
+    console.log('✅ Successfully saved to Vercel Blob:', blob.url);
     return NextResponse.json({
       success: true,
       message: 'Products updated successfully',
       url: blob.url,
+      productsCount: products.length,
     });
   } catch (error) {
-    console.error('Error updating products:', error);
+    console.error('❌ Error updating products:', error);
     return NextResponse.json(
-      { 
-        error: 'Failed to update products', 
-        details: error instanceof Error ? error.message : 'Unknown error' 
+      {
+        error: 'Failed to update products',
+        details: error instanceof Error ? error.message : 'Unknown error'
       },
       { status: 500 }
     );
