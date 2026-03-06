@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { put, head } from '@vercel/blob';
+import { put, list } from '@vercel/blob';
 
 const BLOB_FILENAME = 'products.json';
 
@@ -65,26 +65,35 @@ export async function GET() {
   try {
     // Try to get data from Vercel Blob first
     try {
-      const blobExists = await head(BLOB_FILENAME);
+      // List blobs to find our products file
+      const { blobs } = await list({
+        prefix: BLOB_FILENAME,
+        limit: 1,
+      });
       
-      if (blobExists) {
-        const response = await fetch(blobExists.url);
-        const data = await response.json();
-        return NextResponse.json(data);
+      if (blobs.length > 0) {
+        // Fetch the blob content using the download URL
+        const response = await fetch(blobs[0].downloadUrl);
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Successfully loaded products from Vercel Blob');
+          return NextResponse.json(data);
+        }
       }
     } catch (blobError) {
-      console.log('No blob data found, using local file');
+      console.log('No blob data found or error accessing blob, using local file:', blobError);
     }
 
     // Fallback to local products.json if blob doesn't exist
+    console.log('Loading products from local file');
     const productsData = require('@/data/products.json');
     return NextResponse.json(productsData);
   } catch (error) {
     console.error('Error reading products:', error);
     return NextResponse.json(
-      { 
-        error: 'Failed to read products', 
-        details: error instanceof Error ? error.message : 'Unknown error' 
+      {
+        error: 'Failed to read products',
+        details: error instanceof Error ? error.message : 'Unknown error'
       },
       { status: 500 }
     );
