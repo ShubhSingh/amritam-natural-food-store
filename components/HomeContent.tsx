@@ -46,8 +46,8 @@ export default function HomeContent() {
 
     fetchProducts();
 
-    // Poll for updates every 5 seconds
-    const interval = setInterval(fetchProducts, 5000);
+    // Poll for updates every 1 minute
+    const interval = setInterval(fetchProducts, 60000);
 
     return () => clearInterval(interval);
   }, []);

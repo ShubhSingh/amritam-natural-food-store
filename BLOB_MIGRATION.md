@@ -16,7 +16,7 @@ Your application is now configured to use Vercel Blob Storage for all product da
 
 3. **Customer Page** ([`components/HomeContent.tsx`](components/HomeContent.tsx)):
    - Fetches products from API (which reads from Blob)
-   - Auto-refreshes every 5 seconds
+   - Auto-refreshes every 1 minute
 
 ### Local File Usage
 

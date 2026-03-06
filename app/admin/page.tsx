@@ -631,7 +631,7 @@ export default function AdminPage() {
             </div>
             <div className="flex items-start gap-2">
               <span className="text-green-600 font-bold">3.</span>
-              <p><strong>Live Updates:</strong> The customer website automatically refreshes every 5 seconds to show your latest changes.</p>
+              <p><strong>Live Updates:</strong> The customer website automatically refreshes every 1 minute to show your latest changes.</p>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-green-600 font-bold">4.</span>
